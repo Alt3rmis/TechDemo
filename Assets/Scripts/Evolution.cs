@@ -28,7 +28,7 @@ public static class Evolution
         return MapReconstructor(flattenMap, map1Width, map1Height);
     }
 
-    public static float[,] SquareCrossover(float[,] map1, float[,] map2, int squareNum)
+    public static float[,] SquareCrossover(float[,] map1, float[,] map2, int squareNum, bool smooth)
     {
         int mapWidth = map1.GetLength(0);
         int mapHeight = map2.GetLength(1);
@@ -48,8 +48,10 @@ public static class Evolution
                     map[x, y] = map2[x, y];
             }
         }
-        map = Convolve(map, GenerateKernel(8, 10));
-        map = Normalize(map);
+        if(smooth){
+            map = Convolve(map, GenerateKernel(10, 10));
+            map = Normalize(map);
+        }
         return map;
     }
     private static float[] MapFlatter(float[,] map){
