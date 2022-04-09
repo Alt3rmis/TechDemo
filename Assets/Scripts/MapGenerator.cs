@@ -21,6 +21,8 @@ public class MapGenerator : MonoBehaviour
     public int seed;
     public Vector2 offset;
 
+    public int kernelSize;
+
     public float meshHeightMultiplier;
     public AnimationCurve meshHeightCurve;
 
@@ -33,9 +35,12 @@ public class MapGenerator : MonoBehaviour
         // Get noise map
         // Replace noise map with evolution algorithm generator
         // float[,] noiseMap = Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacunarity, offset);
-        float[,] noiseMap = Evolution.MapCrossover(Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacunarity, offset),
+        /*float[,] noiseMap = Evolution.OnePointCrossover(Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacunarity, offset),
         Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed+1, noiseScale, octaves, persistance, lacunarity, offset));
-        
+        */
+        float[,] noiseMap = Evolution.SquareCrossover(Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacunarity, offset),
+                                                        Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacunarity, offset),
+                                                        3);
         // Get colour map
         Color[] colourMap = new Color[mapChunkSize*mapChunkSize];
         for (int y=0; y<mapChunkSize; y++){
