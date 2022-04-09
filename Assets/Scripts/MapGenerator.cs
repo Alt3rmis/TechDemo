@@ -32,8 +32,10 @@ public class MapGenerator : MonoBehaviour
     {
         // Get noise map
         // Replace noise map with evolution algorithm generator
-        float[,] noiseMap = Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacunarity, offset);
-
+        // float[,] noiseMap = Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacunarity, offset);
+        float[,] noiseMap = Evolution.MapCrossover(Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacunarity, offset),
+        Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed+1, noiseScale, octaves, persistance, lacunarity, offset));
+        
         // Get colour map
         Color[] colourMap = new Color[mapChunkSize*mapChunkSize];
         for (int y=0; y<mapChunkSize; y++){
