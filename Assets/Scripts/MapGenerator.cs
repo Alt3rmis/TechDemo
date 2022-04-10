@@ -8,6 +8,7 @@ public class MapGenerator : MonoBehaviour
     public enum DrawMode {NoiseMap, ColourMap, Mesh};
     public DrawMode drawMode;
 
+    // public const int mapChunkSize = 241;
     public const int mapChunkSize = 241;
     [Range(0, 6)]
     public int levelOfDetail;
@@ -25,6 +26,14 @@ public class MapGenerator : MonoBehaviour
     public bool smooth;
     public int crossoverChunk;
 
+    public float waterPercentage;
+    public float landPercentage;
+    public float mountainPercentage;
+    public float snowPercentage;
+
+    public int generations = 100;
+    public int parentNumber = 30;
+
     public float meshHeightMultiplier;
     public AnimationCurve meshHeightCurve;
 
@@ -41,15 +50,15 @@ public class MapGenerator : MonoBehaviour
         Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed+1, noiseScale, octaves, persistance, lacunarity, offset));
         */
         float[,] noiseMap;
-        if(crossover)
-        {
-            noiseMap = Evolution.SquareCrossover(Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacunarity, offset),
-                                                            Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed+1, noiseScale, octaves, persistance, lacunarity, offset),
-                                                            crossoverChunk, smooth);
-        } else{
+        if(crossover){
+            /*noiseMap = Evolution.SquareCrossover(Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacunarity, offset),
+        Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed+1, noiseScale, octaves, persistance, lacunarity, offset), 2, smooth)[1];
+            */noiseMap = Evolution.Evolve(generations, parentNumber, mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacunarity, offset, waterPercentage, landPercentage, mountainPercentage, snowPercentage, smooth);
+        } else {
             noiseMap = Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacunarity, offset);
         }
-            
+
+        
         // Get colour map
         Color[] colourMap = new Color[mapChunkSize*mapChunkSize];
         for (int y=0; y<mapChunkSize; y++){
