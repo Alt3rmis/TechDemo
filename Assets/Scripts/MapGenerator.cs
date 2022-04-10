@@ -21,6 +21,7 @@ public class MapGenerator : MonoBehaviour
     public int seed;
     public Vector2 offset;
 
+    public bool crossover;
     public bool smooth;
     public int crossoverChunk;
 
@@ -39,9 +40,16 @@ public class MapGenerator : MonoBehaviour
         /*float[,] noiseMap = Evolution.OnePointCrossover(Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacunarity, offset),
         Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed+1, noiseScale, octaves, persistance, lacunarity, offset));
         */
-        float[,] noiseMap = Evolution.SquareCrossover(Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacunarity, offset),
-                                                        Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed+1, noiseScale, octaves, persistance, lacunarity, offset),
-                                                        crossoverChunk, smooth);
+        float[,] noiseMap;
+        if(crossover)
+        {
+            noiseMap = Evolution.SquareCrossover(Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacunarity, offset),
+                                                            Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed+1, noiseScale, octaves, persistance, lacunarity, offset),
+                                                            crossoverChunk, smooth);
+        } else{
+            noiseMap = Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacunarity, offset);
+        }
+            
         // Get colour map
         Color[] colourMap = new Color[mapChunkSize*mapChunkSize];
         for (int y=0; y<mapChunkSize; y++){
