@@ -136,6 +136,7 @@ public static class Evolution
         List<float> scores = new List<float>();
         float maxScore = float.MinValue;
         float minScore = float.MaxValue;
+        Debug.Log("maps count "+maps.Count);
         for(int i = 0; i < maps.Count; i++){
             scores.Add(ScoreMap(maps[i], waterPercentage, landPercentage, mountainPercentage, snowPercentage));
             if(scores[i] > maxScore){
@@ -146,10 +147,11 @@ public static class Evolution
             }
         }
         float targetScore = (maxScore + minScore)/2;
-        targetScore = (maxScore + targetScore)/2;
+        Debug.Log("Max Score " + maxScore + "Min Score " + minScore + "Target Score: " + targetScore);
+        //targetScore = (maxScore + targetScore)/2;
         List<float[,]> result = new List<float[,]>();
         for(int i = 0; i < maps.Count; i++){
-            if(scores[i] > targetScore){
+            if(scores[i] >= targetScore){
                 result.Add(maps[i]);
             }
         }

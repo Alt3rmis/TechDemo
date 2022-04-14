@@ -51,9 +51,9 @@ public class MapGenerator : MonoBehaviour
         */
         float[,] noiseMap;
         if(crossover){
-            /*noiseMap = Evolution.SquareCrossover(Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacunarity, offset),
-        Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed+1, noiseScale, octaves, persistance, lacunarity, offset), 2, smooth)[1];
-            */noiseMap = Evolution.Evolve(generations, parentNumber, mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacunarity, offset, waterPercentage, landPercentage, mountainPercentage, snowPercentage, smooth);
+            noiseMap = Evolution.SquareCrossover(Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacunarity, offset),
+        Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed+1, noiseScale, octaves, persistance, lacunarity, offset), crossoverChunk, smooth)[1];
+            //noiseMap = Evolution.Evolve(generations, parentNumber, mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacunarity, offset, waterPercentage, landPercentage, mountainPercentage, snowPercentage, smooth);
         } else {
             noiseMap = Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacunarity, offset);
         }
