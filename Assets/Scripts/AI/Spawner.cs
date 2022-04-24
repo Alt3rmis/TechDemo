@@ -34,7 +34,7 @@ namespace UnityMovementAI
             {
                 if (Vector3.Distance(obj.Position, pos) < halfSize + obj.Radius)
                 {
-                    return false;
+                    return true;
                 }
             }
             return true;
@@ -48,6 +48,7 @@ namespace UnityMovementAI
             pos.x = spawnPoint.position.x + Random.Range(-spawnOffset, spawnOffset);
             pos.y = spawnPoint.position.y + Random.Range(-spawnOffset, spawnOffset);
             pos.z = spawnPoint.position.z + Random.Range(-spawnOffset, spawnOffset);
+            
             if (CanPlaceObject(halfSize, pos))
             {
                 Transform t = Instantiate(spawnObject, pos, Quaternion.identity) as Transform;
@@ -61,7 +62,7 @@ namespace UnityMovementAI
                     t.rotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
                 }
                 spawnedObjects.Add(t.GetComponent<MovementAIRigidbody>());
-
+                
                 return true;
             }
             return false;
@@ -83,7 +84,7 @@ namespace UnityMovementAI
             MovementAIRigidbody rb = spawnObject.GetComponent<MovementAIRigidbody>();
             rb.SetUp();
             // should find size of map?
-
+            int count = 0;
             for (int i = 0 ; i < numberOfObjects; i++)
             {
                 for (int j = 0; j < 10; j++) // try create obj 10 times
@@ -93,6 +94,8 @@ namespace UnityMovementAI
                         break;
                     }
                 }
+                Debug.Log("Created object:"+count);
+                count++;
             }
             InitCamera();
         }

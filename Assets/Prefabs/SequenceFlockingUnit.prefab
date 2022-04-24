@@ -189,9 +189,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe1b792c4e588d04982cca8b941e9888, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxVelocity: 20
-  maxAcceleration: 40
-  turnSpeed: 20
+  maxVelocity: 50
+  maxAcceleration: 100
+  turnSpeed: 30
   targetRadius: 1
   slowRadius: 3
   timeToTarget: 0.1
