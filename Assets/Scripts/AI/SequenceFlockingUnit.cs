@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UnityMovementAI
 {
-    public class SeqFlockingUnit : MonoBehaviour
+    public class SequenceFlockingUnit : MonoBehaviour
     {
         public float cohesionWeight = 1.5f;
         public float separationWeight = 2f;
