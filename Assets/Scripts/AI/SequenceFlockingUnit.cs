@@ -10,7 +10,7 @@ namespace UnityMovementAI
         public float separationWeight = 2f;
         public float velocityMatchWeight = 1f;
         SteeringBasics steeringBasics;
-        SeqArrive arrive;
+        SequenceArrive arrive;
         Cohesion cohesion;
         Separation separation;
         VelocityMatch velocityMatch;
@@ -23,7 +23,7 @@ namespace UnityMovementAI
         {
             rb = GetComponent<MovementAIRigidbody>();
             steeringBasics = GetComponent<SteeringBasics>();
-            arrive = GetComponent<SeqArrive>();
+            arrive = GetComponent<SequenceArrive>();
             cohesion = GetComponent<Cohesion>();
             separation = GetComponent<Separation>();
             velocityMatch = GetComponent<VelocityMatch>();

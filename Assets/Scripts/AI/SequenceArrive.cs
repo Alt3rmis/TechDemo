@@ -5,7 +5,7 @@ using UnityEngine;
 namespace UnityMovementAI
 {
     
-    public class SeqArrive : MonoBehaviour
+    public class SequenceArrive : MonoBehaviour
     {
         MovementAIRigidbody rb;
         SteeringBasics steeringBasics;

@@ -21,6 +21,8 @@ namespace UnityMovementAI
 
         public bool canLoop = true;
 
+        public Camera cam;
+
         [System.NonSerialized]
 
         public List<MovementAIRigidbody> spawnedObjects = new List<MovementAIRigidbody>();
@@ -70,7 +72,7 @@ namespace UnityMovementAI
             {
                 spawnPoint = transform;
             }
-            SeqArrive sa = spawnObject.GetComponent<SeqArrive>();
+            SequenceArrive sa = spawnObject.GetComponent<SequenceArrive>();
             if (sa)
             {
                 sa.sendTargets(thingsToTrack, canLoop); // send the spawned objects to the seq arrive script
@@ -92,6 +94,12 @@ namespace UnityMovementAI
                     }
                 }
             }
+            InitCamera();
+        }
+
+        void InitCamera()
+        {
+            Instantiate(cam);
         }
     }
 }

@@ -61,10 +61,11 @@ GameObject:
   - component: {fileID: 5445040375762877161}
   - component: {fileID: 4547520524838754723}
   - component: {fileID: 2146909524680752564}
+  - component: {fileID: 5902163950474149222}
   - component: {fileID: 2338064268565266044}
   m_Layer: 0
   m_Name: SequenceFlockingUnit
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -78,7 +79,7 @@ Transform:
   m_GameObject: {fileID: 6088075270089019914}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
   m_LocalPosition: {x: -560.47797, y: 150.57018, z: 777.22736}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalScale: {x: 1000, y: 1000, z: 1000}
   m_Children:
   - {fileID: 8907703320581303208}
   m_Father: {fileID: 0}
@@ -188,9 +189,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe1b792c4e588d04982cca8b941e9888, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxVelocity: 5
-  maxAcceleration: 10
-  turnSpeed: 10
+  maxVelocity: 20
+  maxAcceleration: 40
+  turnSpeed: 20
   targetRadius: 1
   slowRadius: 3
   timeToTarget: 0.1
@@ -238,6 +239,26 @@ MonoBehaviour:
   facingCosine: 90
   timeToTarget: 0.1
   maxAcceleration: 10
+--- !u!114 &5902163950474149222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6088075270089019914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d91ce7815e2703d4da17df3ff0cae5d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mrbList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  canLoop: 1
 --- !u!114 &2338064268565266044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,6 +271,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f5fa983a4a214747a428525ca7eb94f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cohesionWeight: 1.5
-  separationWeight: 2
+  cohesionWeight: 5
+  separationWeight: 1
   velocityMatchWeight: 1
