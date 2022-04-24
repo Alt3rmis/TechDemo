@@ -41,12 +41,17 @@ public class MapGenerator : MonoBehaviour
 
     public TerrainType[] regions;
 
+    Vector3 interestingPoints;
+    bool hasGenerated = false;
+    WaypointsGenerator wg;
     void Start()
     {
+        
         GenerateMap();
     }
     public void GenerateMap()
     {
+        wg = GetComponent<WaypointsGenerator>();
         // Get noise map
         // Replace noise map with evolution algorithm generator
         // float[,] noiseMap = Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacunarity, offset);
@@ -64,11 +69,16 @@ public class MapGenerator : MonoBehaviour
 
         
         // Get colour map
+        float maxHeight = float.MinValue;
         Color[] colourMap = new Color[mapChunkSize*mapChunkSize];
         for (int y=0; y<mapChunkSize; y++){
             for (int x=0; x<mapChunkSize; x++){
                 float currentHeight = noiseMap [x,y];
                 for (int i=0; i < regions.Length; i++){
+                    if (currentHeight > maxHeight){
+                        maxHeight = currentHeight;
+                        interestingPoints = new Vector3(x,currentHeight,y);
+                    }
                     if (currentHeight <= regions[i].height){
                         colourMap [y*mapChunkSize+x] = regions[i].colour;
                         break;
@@ -76,6 +86,8 @@ public class MapGenerator : MonoBehaviour
                 }
             }
         }
+        hasGenerated = true;
+        // Debug.Log("interesting points: " + interestingPoints);
         MapDisplay display = FindObjectOfType<MapDisplay>();
         if (drawMode==DrawMode.NoiseMap)
         {
@@ -89,7 +101,19 @@ public class MapGenerator : MonoBehaviour
         {
             display.DrawMesh(MeshGenerator.GenerateTerrainMesh(noiseMap, meshHeightMultiplier, meshHeightCurve, levelOfDetail), TextureGenerator.TextureFromColourMap(colourMap, mapChunkSize, mapChunkSize));
         }
-        
+        wg.GenerateWaypoints();
+    }
+
+    public Vector3 GetInterestingPoints()
+    {
+        if(hasGenerated)
+        {
+            return interestingPoints;
+        }
+        else
+        {
+            return new Vector2(0f,0f);
+        }
     }
 
     void OnValidate() {
