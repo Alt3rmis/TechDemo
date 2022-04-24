@@ -44,9 +44,8 @@ public class MapGenerator : MonoBehaviour
     Vector3 interestingPoints;
     bool hasGenerated = false;
     WaypointsGenerator wg;
-    void Start()
+    public void Start()
     {
-        
         GenerateMap();
     }
     public void GenerateMap()
@@ -101,7 +100,7 @@ public class MapGenerator : MonoBehaviour
         {
             display.DrawMesh(MeshGenerator.GenerateTerrainMesh(noiseMap, meshHeightMultiplier, meshHeightCurve, levelOfDetail), TextureGenerator.TextureFromColourMap(colourMap, mapChunkSize, mapChunkSize));
         }
-        wg.GenerateWaypoints();
+        // wg.GenerateWaypoints();
     }
 
     public Vector3 GetInterestingPoints()

@@ -6,9 +6,11 @@ public class WaypointsGenerator : MonoBehaviour
 {
     public int numberOfWaypoints = 10;
     public Transform waypointPrefab;
+    public Transform invisibleWaypointPrefab;
 
     public Transform interestingPoint;
     public int waypointsRadius = 500;
+    public bool isVisible = true;
     MapGenerator mapGenerator;
 
     List<Vector3> waypoints;
@@ -46,6 +48,7 @@ public class WaypointsGenerator : MonoBehaviour
     List<Vector3> RandomizeWaypoints(List<Vector3> waypoints, float height)
     {
         List<Vector3> newWaypoints = new List<Vector3>();
+        
         for (int i = 0; i < waypoints.Count; i++)
         {
             newWaypoints.Add(new Vector3(waypoints[i].x + Random.Range(-100f, 100f), Random.Range(height-50f, height+150f), waypoints[i].z + Random.Range(-100f, 100f)));
@@ -58,11 +61,21 @@ public class WaypointsGenerator : MonoBehaviour
         waypoints = CalculateWaypoints();
         for(int i = 0; i < waypoints.Count; i++)
         {
-            waypointsObjects.Add(Instantiate(waypointPrefab, waypoints[i], Quaternion.identity));
+            if(isVisible)
+            {
+                waypointsObjects.Add(Instantiate(waypointPrefab, waypoints[i], Quaternion.identity));
+            } else {
+                waypointsObjects.Add(Instantiate(invisibleWaypointPrefab, waypoints[i], Quaternion.identity));
+            }
+            
         }
         return waypointsObjects;
     }
 
+    public List<Transform> GetWaypoints()
+    {
+        return waypointsObjects;
+    }
     public void ClearWaypoints()
     {
         GameObject[] objects = GameObject.FindGameObjectsWithTag("Waypoint");

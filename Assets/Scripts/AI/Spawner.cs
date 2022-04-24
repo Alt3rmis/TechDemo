@@ -69,6 +69,13 @@ namespace UnityMovementAI
         }
         void Awake()
         {
+            if (thingsToTrack.Count == 0)
+            {
+                Debug.Log("Spawner: thingsToTrack is empty");
+                WaypointsGenerator wg = GameObject.FindGameObjectWithTag("MapGenerator").GetComponent<WaypointsGenerator>();
+                thingsToTrack = wg.GenerateWaypoints();
+            } 
+            Debug.Log("things to track: " + thingsToTrack.Count);
             if(!spawnPoint)
             {
                 spawnPoint = transform;
@@ -78,6 +85,7 @@ namespace UnityMovementAI
             {
                 sa.sendTargets(thingsToTrack, canLoop); // send the spawned objects to the seq arrive script
             }
+            
         }
         void Start()
         {
@@ -94,7 +102,7 @@ namespace UnityMovementAI
                         break;
                     }
                 }
-                Debug.Log("Created object:"+count);
+                // Debug.Log("Created object:"+count);
                 count++;
             }
             InitCamera();
