@@ -41,6 +41,10 @@ public class MapGenerator : MonoBehaviour
 
     public TerrainType[] regions;
 
+    void Start()
+    {
+        GenerateMap();
+    }
     public void GenerateMap()
     {
         // Get noise map
