@@ -5,54 +5,153 @@
 
 import UIKit
 
-class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController {
 
     private let viewModel = HomeViewModel()
 
-    private lazy var nameLabel: UILabel = {
+    private lazy var cityLabel: UILabel = {
         let label = UILabel()
+        label.text = "Shanghai"
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 24, weight: .medium)
-        label.numberOfLines = 0
-        label.text = "No user loaded"
+        label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
-    private lazy var loadButton: UIButton = {
+    private lazy var temperatureLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 64, weight: .light)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    private lazy var conditionLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 20, weight: .regular)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    private lazy var refreshButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Load User", for: .normal)
+        button.setTitle("Refresh", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(loadUserTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(refreshTapped), for: .touchUpInside)
         return button
+    }()
+
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .medium)
+        indicator.hidesWhenStopped = true
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        return indicator
+    }()
+
+    private lazy var errorLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        label.textColor = .systemRed
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        observeViewModel()
+        viewModel.fetchWeather()
+        updateUI()
     }
 
     private func setupUI() {
         view.backgroundColor = .systemBackground
-        title = "Home"
+        title = "Weather"
 
-        view.addSubview(nameLabel)
-        view.addSubview(loadButton)
+        view.addSubview(cityLabel)
+        view.addSubview(temperatureLabel)
+        view.addSubview(conditionLabel)
+        view.addSubview(refreshButton)
+        view.addSubview(activityIndicator)
+        view.addSubview(errorLabel)
 
         NSLayoutConstraint.activate([
-            nameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            nameLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -40),
-            nameLabel.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 20),
-            nameLabel.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -20),
+            cityLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            cityLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
 
-            loadButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            loadButton.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 32),
+            temperatureLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            temperatureLabel.topAnchor.constraint(equalTo: cityLabel.bottomAnchor, constant: 16),
+
+            conditionLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            conditionLabel.topAnchor.constraint(equalTo: temperatureLabel.bottomAnchor, constant: 8),
+
+            refreshButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            refreshButton.topAnchor.constraint(equalTo: conditionLabel.bottomAnchor, constant: 32),
+
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 40),
+
+            errorLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            errorLabel.topAnchor.constraint(equalTo: cityLabel.bottomAnchor, constant: 16),
+            errorLabel.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 20),
+            errorLabel.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -20),
         ])
     }
 
-    @objc private func loadUserTapped() {
-        viewModel.loadUser()
-        nameLabel.text = viewModel.userName
+    private func observeViewModel() {
+        withObservationTracking {
+            _ = viewModel.viewState
+        } onChange: { [weak self] in
+            DispatchQueue.main.async {
+                self?.updateUI()
+                self?.observeViewModel()
+            }
+        }
+    }
+
+    private func updateUI() {
+        let isLoading = viewModel.isLoading
+        let temperature = viewModel.temperatureText
+        let condition = viewModel.conditionText
+        let error = viewModel.errorMessage
+
+        if isLoading {
+            activityIndicator.startAnimating()
+            temperatureLabel.isHidden = true
+            conditionLabel.isHidden = true
+            errorLabel.isHidden = true
+        } else if let error {
+            activityIndicator.stopAnimating()
+            temperatureLabel.isHidden = true
+            conditionLabel.isHidden = true
+            errorLabel.isHidden = false
+            errorLabel.text = error
+        } else {
+            activityIndicator.stopAnimating()
+            errorLabel.isHidden = true
+
+            if let temperature {
+                temperatureLabel.isHidden = false
+                temperatureLabel.text = temperature
+            } else {
+                temperatureLabel.isHidden = true
+            }
+
+            if let condition {
+                conditionLabel.isHidden = false
+                conditionLabel.text = condition
+            } else {
+                conditionLabel.isHidden = true
+            }
+        }
+    }
+
+    @objc private func refreshTapped() {
+        viewModel.fetchWeather()
+        updateUI()
     }
 }
