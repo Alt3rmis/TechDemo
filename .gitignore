@@ -1,0 +1,15 @@
+# Xcode
+build/
+DerivedData/
+xcuserdata/
+*.xcscmblueprint
+*.xccheckout
+
+# macOS
+.DS_Store
+
+# Specs (feature workspace artifacts)
+.specs/
+
+# Plan files
+plan.md
