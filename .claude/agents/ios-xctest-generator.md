@@ -76,6 +76,7 @@ You must output EXACTLY two sections:
 
 ### Section 1: Test File
 Provide the COMPLETE file contents wrapped in a code block with the appropriate filename. The file must:
+- YOU MUST RUN THE TEST BEFORE YOU WRITE
 - Import XCTest and any required modules
 - Contain all necessary mock types
 - Contain the test class with all test methods

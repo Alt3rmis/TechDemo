@@ -1,0 +1,46 @@
+{
+  "" : {
+    "const-values" : "/Users/qinlinxie/Desktop/Dev/TechDemo/build/TechDemo.build/Release-iphonesimulator/TechDemo.build/Objects-normal/arm64/TechDemo-primary.swiftconstvalues",
+    "dependencies" : "/Users/qinlinxie/Desktop/Dev/TechDemo/build/TechDemo.build/Release-iphonesimulator/TechDemo.build/Objects-normal/arm64/TechDemo-primary.d",
+    "diagnostics" : "/Users/qinlinxie/Desktop/Dev/TechDemo/build/TechDemo.build/Release-iphonesimulator/TechDemo.build/Objects-normal/arm64/TechDemo-primary.dia",
+    "emit-module-dependencies" : "/Users/qinlinxie/Desktop/Dev/TechDemo/build/TechDemo.build/Release-iphonesimulator/TechDemo.build/Objects-normal/arm64/TechDemo-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/qinlinxie/Desktop/Dev/TechDemo/build/TechDemo.build/Release-iphonesimulator/TechDemo.build/Objects-normal/arm64/TechDemo-primary-emit-module.dia",
+    "pch" : "/Users/qinlinxie/Desktop/Dev/TechDemo/build/TechDemo.build/Release-iphonesimulator/TechDemo.build/Objects-normal/arm64/TechDemo-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/qinlinxie/Desktop/Dev/TechDemo/build/TechDemo.build/Release-iphonesimulator/TechDemo.build/Objects-normal/arm64/TechDemo-primary.swiftdeps"
+  },
+  "/Users/qinlinxie/Desktop/Dev/TechDemo/TechDemo/AppDelegate.swift" : {
+    "index-unit-output-path" : "/TechDemo.build/Release-iphonesimulator/TechDemo.build/Objects-normal/arm64/AppDelegate.o",
+    "llvm-bc" : "/Users/qinlinxie/Desktop/Dev/TechDemo/build/TechDemo.build/Release-iphonesimulator/TechDemo.build/Objects-normal/arm64/AppDelegate.bc",
+    "object" : "/Users/qinlinxie/Desktop/Dev/TechDemo/build/TechDemo.build/Release-iphonesimulator/TechDemo.build/Objects-normal/arm64/AppDelegate.o"
+  },
+  "/Users/qinlinxie/Desktop/Dev/TechDemo/TechDemo/Home/HomeViewController.swift" : {
+    "index-unit-output-path" : "/TechDemo.build/Release-iphonesimulator/TechDemo.build/Objects-normal/arm64/HomeViewController.o",
+    "llvm-bc" : "/Users/qinlinxie/Desktop/Dev/TechDemo/build/TechDemo.build/Release-iphonesimulator/TechDemo.build/Objects-normal/arm64/HomeViewController.bc",
+    "object" : "/Users/qinlinxie/Desktop/Dev/TechDemo/build/TechDemo.build/Release-iphonesimulator/TechDemo.build/Objects-normal/arm64/HomeViewController.o"
+  },
+  "/Users/qinlinxie/Desktop/Dev/TechDemo/TechDemo/Home/HomeViewModel.swift" : {
+    "index-unit-output-path" : "/TechDemo.build/Release-iphonesimulator/TechDemo.build/Objects-normal/arm64/HomeViewModel.o",
+    "llvm-bc" : "/Users/qinlinxie/Desktop/Dev/TechDemo/build/TechDemo.build/Release-iphonesimulator/TechDemo.build/Objects-normal/arm64/HomeViewModel.bc",
+    "object" : "/Users/qinlinxie/Desktop/Dev/TechDemo/build/TechDemo.build/Release-iphonesimulator/TechDemo.build/Objects-normal/arm64/HomeViewModel.o"
+  },
+  "/Users/qinlinxie/Desktop/Dev/TechDemo/TechDemo/Models/User.swift" : {
+    "index-unit-output-path" : "/TechDemo.build/Release-iphonesimulator/TechDemo.build/Objects-normal/arm64/User.o",
+    "llvm-bc" : "/Users/qinlinxie/Desktop/Dev/TechDemo/build/TechDemo.build/Release-iphonesimulator/TechDemo.build/Objects-normal/arm64/User.bc",
+    "object" : "/Users/qinlinxie/Desktop/Dev/TechDemo/build/TechDemo.build/Release-iphonesimulator/TechDemo.build/Objects-normal/arm64/User.o"
+  },
+  "/Users/qinlinxie/Desktop/Dev/TechDemo/TechDemo/SceneDelegate.swift" : {
+    "index-unit-output-path" : "/TechDemo.build/Release-iphonesimulator/TechDemo.build/Objects-normal/arm64/SceneDelegate.o",
+    "llvm-bc" : "/Users/qinlinxie/Desktop/Dev/TechDemo/build/TechDemo.build/Release-iphonesimulator/TechDemo.build/Objects-normal/arm64/SceneDelegate.bc",
+    "object" : "/Users/qinlinxie/Desktop/Dev/TechDemo/build/TechDemo.build/Release-iphonesimulator/TechDemo.build/Objects-normal/arm64/SceneDelegate.o"
+  },
+  "/Users/qinlinxie/Desktop/Dev/TechDemo/TechDemo/Services/UserService.swift" : {
+    "index-unit-output-path" : "/TechDemo.build/Release-iphonesimulator/TechDemo.build/Objects-normal/arm64/UserService.o",
+    "llvm-bc" : "/Users/qinlinxie/Desktop/Dev/TechDemo/build/TechDemo.build/Release-iphonesimulator/TechDemo.build/Objects-normal/arm64/UserService.bc",
+    "object" : "/Users/qinlinxie/Desktop/Dev/TechDemo/build/TechDemo.build/Release-iphonesimulator/TechDemo.build/Objects-normal/arm64/UserService.o"
+  },
+  "/Users/qinlinxie/Desktop/Dev/TechDemo/build/TechDemo.build/Release-iphonesimulator/TechDemo.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "index-unit-output-path" : "/TechDemo.build/Release-iphonesimulator/TechDemo.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "llvm-bc" : "/Users/qinlinxie/Desktop/Dev/TechDemo/build/TechDemo.build/Release-iphonesimulator/TechDemo.build/Objects-normal/arm64/GeneratedAssetSymbols.bc",
+    "object" : "/Users/qinlinxie/Desktop/Dev/TechDemo/build/TechDemo.build/Release-iphonesimulator/TechDemo.build/Objects-normal/arm64/GeneratedAssetSymbols.o"
+  }
+}
