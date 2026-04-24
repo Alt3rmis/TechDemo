@@ -18,10 +18,19 @@ final class HomeViewModel {
     var viewState: ViewState = .idle
 
     private let weatherService: WeatherServiceProtocol
+    private let persistenceService: CityPersistenceServiceProtocol
+    private(set) var currentCity: City
     private var fetchGeneration: Int = 0
 
-    init(weatherService: WeatherServiceProtocol = WeatherService()) {
+    var cityName: String {
+        return "\(currentCity.chineseName) \(currentCity.name)"
+    }
+
+    init(weatherService: WeatherServiceProtocol = WeatherService(),
+         persistenceService: CityPersistenceServiceProtocol = CityPersistenceService()) {
         self.weatherService = weatherService
+        self.persistenceService = persistenceService
+        self.currentCity = persistenceService.loadSelectedCity() ?? City.defaultCity
     }
 
     var isLoading: Bool {
@@ -33,7 +42,7 @@ final class HomeViewModel {
 
     var temperatureText: String? {
         if case .loaded(let weather) = viewState {
-            return "\(weather.temperature)°C"
+            return "\(weather.temperature)\u{00B0}C"
         }
         return nil
     }
@@ -52,11 +61,18 @@ final class HomeViewModel {
         return nil
     }
 
+    func selectCity(_ city: City) {
+        viewState = .loading
+        currentCity = city
+        persistenceService.saveSelectedCity(city)
+        fetchWeather()
+    }
+
     func fetchWeather() {
         viewState = .loading
         fetchGeneration += 1
         let generation = fetchGeneration
-        weatherService.fetchWeather { [weak self] result in
+        weatherService.fetchWeather(for: currentCity) { [weak self] result in
             guard let self, self.fetchGeneration == generation else { return }
             switch result {
             case .success(let response):

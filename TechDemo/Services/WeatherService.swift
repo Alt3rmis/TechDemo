@@ -6,14 +6,19 @@
 import Foundation
 
 protocol WeatherServiceProtocol {
-    func fetchWeather(completion: @Sendable @escaping (Result<WeatherResponse, Error>) -> Void)
+    func fetchWeather(for city: City, completion: @Sendable @escaping (Result<WeatherResponse, Error>) -> Void)
 }
 
 final class WeatherService: WeatherServiceProtocol {
 
-    private let url = URL(string: "https://api.open-meteo.com/v1/forecast?latitude=31.2304&longitude=121.4737&current_weather=true")!
+    func fetchWeather(for city: City, completion: @escaping @Sendable (Result<WeatherResponse, Error>) -> Void) {
+        let urlString = "https://api.open-meteo.com/v1/forecast?latitude=\(city.latitude)&longitude=\(city.longitude)&current_weather=true"
+        guard let url = URL(string: urlString) else {
+            let error = NSError(domain: "WeatherService", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])
+            completion(.failure(error))
+            return
+        }
 
-    func fetchWeather(completion: @escaping @Sendable (Result<WeatherResponse, Error>) -> Void) {
         let task = URLSession.shared.dataTask(with: url) { data, _, error in
             DispatchQueue.main.async {
                 if let error {

@@ -11,7 +11,6 @@ final class HomeViewController: UIViewController {
 
     private lazy var cityLabel: UILabel = {
         let label = UILabel()
-        label.text = "Shanghai"
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -60,6 +59,16 @@ final class HomeViewController: UIViewController {
         return label
     }()
 
+    private lazy var settingsButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(
+            image: UIImage(systemName: "gearshape"),
+            style: .plain,
+            target: self,
+            action: #selector(settingsTapped)
+        )
+        return button
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -71,6 +80,7 @@ final class HomeViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .systemBackground
         title = "Weather"
+        navigationItem.rightBarButtonItem = settingsButton
 
         view.addSubview(cityLabel)
         view.addSubview(temperatureLabel)
@@ -105,6 +115,7 @@ final class HomeViewController: UIViewController {
     private func observeViewModel() {
         withObservationTracking {
             _ = viewModel.viewState
+            _ = viewModel.cityName
         } onChange: { [weak self] in
             DispatchQueue.main.async {
                 self?.updateUI()
@@ -118,6 +129,8 @@ final class HomeViewController: UIViewController {
         let temperature = viewModel.temperatureText
         let condition = viewModel.conditionText
         let error = viewModel.errorMessage
+
+        cityLabel.text = viewModel.cityName
 
         if isLoading {
             activityIndicator.startAnimating()
@@ -153,5 +166,13 @@ final class HomeViewController: UIViewController {
     @objc private func refreshTapped() {
         viewModel.fetchWeather()
         updateUI()
+    }
+
+    @objc private func settingsTapped() {
+        let selectionViewModel = CitySelectionViewModel(selectedCity: viewModel.currentCity)
+        let selectionVC = CitySelectionViewController(viewModel: selectionViewModel) { [weak self] city in
+            self?.viewModel.selectCity(city)
+        }
+        navigationController?.pushViewController(selectionVC, animated: true)
     }
 }
